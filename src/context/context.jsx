@@ -16,7 +16,7 @@ const AppProvider = ({ children }) => {
 		try {
 			const resp = await fetch(url);
 			const result = await resp.json();
-			// console.log(result);
+			console.log(result);
 			if (result.Response === "True") {
 				// setIsLoading(false);
 				setLoader(false);
