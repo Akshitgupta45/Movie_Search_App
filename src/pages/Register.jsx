@@ -101,7 +101,7 @@ const Register = () => {
 							padding: "5px 30px 5px 30px",
 							fontSize: "15px",
 							borderRadius: "0.5rem",
-							marginTop: "3px",
+							// marginTop: "3px",
 						}}
 						onClick={handleGoogleSignIn}
 					>

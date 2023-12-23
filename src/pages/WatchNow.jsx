@@ -49,8 +49,8 @@ const WatchNow = () => {
 					<div className="video-player">
 						<ReactPlayer
 							controls={true}
-							height={500}
-							width={900}
+							height={400}
+							width={800}
 							style={{ height: "700px" }}
 							url="https://youtu.be/8pDqJVdNa44?si=WiKRB9r2M4R4ewtn"
 						/>
