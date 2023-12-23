@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { API_URL, useGlobalContext } from "../context/context";
+import { useEffect, useState } from "react";
+import { auth } from "../firebase";
 import Loader from "../components/Loader";
 
 const SingleMovie = () => {
 	const { id } = useParams();
 	const { movie, loader, setLoader } = useGlobalContext();
 	const [singleMovie, setSingleMovie] = useState({});
-	// const [singleLoader,setSingleLoader] = useState()
+	const [status, setStatus] = useState(false);
+	const navigate = useNavigate();
 
+	// shwoing movie description
 	const getSingleMovie = async (url) => {
 		setLoader(true);
 		try {
@@ -23,6 +26,12 @@ const SingleMovie = () => {
 	};
 	useEffect(() => {
 		getSingleMovie(`${API_URL}&i=${id}`);
+		auth.onAuthStateChanged((user) => {
+			console.log(user);
+			if (user) {
+				setStatus(true);
+			}
+		});
 	}, []);
 	if (loader) {
 		return (
@@ -31,6 +40,22 @@ const SingleMovie = () => {
 			</div>
 		);
 	}
+
+	// handling watchNow btn
+	const handleWatch = () => {
+		const isUserLogged = JSON.parse(localStorage.getItem("Loggedin"));
+		console.log(isUserLogged);
+		if (isUserLogged || status) {
+			navigate("/watchNow");
+		} else {
+			navigate("/register");
+		}
+	};
+	// useEffect(() => {
+	// 	auth.onAuthStateChanged((user) => {
+	// 		console.log("User Details", user);
+	// 	});
+	// }, []);
 	return (
 		<section className="movie-section">
 			<div className="movie-card">
@@ -74,17 +99,22 @@ const SingleMovie = () => {
 						>
 							Go Back
 						</NavLink>
-						<NavLink
-							to="*"
-							className="back-btn"
+						<button
+							// to="/register"
+							className="back-btn watch"
 							style={{
 								backgroundColor: "grey",
 								color: "white",
 								margin: "10px",
+								fontSize: "1.8rem",
+								borderRadius: "0.5rem",
+								border: "0.2rem solid var(--text-clr)",
+								cursor: "pointer",
 							}}
+							onClick={handleWatch}
 						>
 							Watch Now
-						</NavLink>
+						</button>
 					</div>
 				</div>
 			</div>

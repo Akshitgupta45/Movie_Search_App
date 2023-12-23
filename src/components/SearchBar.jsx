@@ -5,7 +5,7 @@ const SearchBar = () => {
 	const { query, setQuery, isError } = useGlobalContext();
 	return (
 		<section className="search-section">
-			<h2>Search for your favourite movie--Main</h2>
+			<h2>Search for your favourite movie</h2>
 			<div>
 				<form action="#" onSubmit={(e) => e.preventDefault()}>
 					<input
